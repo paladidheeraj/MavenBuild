@@ -11,17 +11,18 @@ node('master') {
 		sh "mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test"
 	}
 
-	stage ('Sonar Analysis'){
+	/*stage ('Sonar Analysis'){
 		sh 'mvn sonar:sonar -Dsonar.host.url=http://52.90.114.217:9000 -Dsonar.login=3f2d512066c968a048575e6a0001e6bcffe61601'
-	}
+	}*/
 
 	stage ('Archive Artifacts'){
 		archiveArtifacts artifacts: 'target/*.war'
 	}
 	
 	stage ('Deployment'){
-		//sh 'cp target/*.war /opt/tomcat8/webapps'
+		sh 'cp target/*.war /opt/tomcat8/webapps'
 	}
+	/*
 	stage ('Notification'){
 		//slackSend color: 'good', message: 'Deployment Sucessful'
 		emailext (
@@ -30,4 +31,5 @@ node('master') {
 		      to: "anuj_sharma401@yahoo.com"
 		    )
 	}
+	*/
 }
